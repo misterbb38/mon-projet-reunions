@@ -9,9 +9,9 @@ function MeetingForm({ onAddMeeting }) {
   // agenda = [ { text: string, subItems: [ { text: string }, ...] }, ...]
   const [agenda, setAgenda] = useState([]);
 
-  const [newAgendaText, setNewAgendaText] = useState(""); // pour un item principal
-  const [newSubItemText, setNewSubItemText] = useState(""); // pour un sous-item
-  const [parentIndex, setParentIndex] = useState(null); // index de l'item parent
+  const [newAgendaText, setNewAgendaText] = useState(""); // item principal
+  const [newSubItemText, setNewSubItemText] = useState(""); // sous-item
+  const [parentIndex, setParentIndex] = useState(null);
 
   // Ajouter un item principal
   const handleAddAgendaItem = () => {
@@ -76,7 +76,7 @@ function MeetingForm({ onAddMeeting }) {
         />
       </div>
 
-      {/* Title */}
+      {/* Titre */}
       <div>
         <label className="block mb-1 font-medium">Titre</label>
         <input

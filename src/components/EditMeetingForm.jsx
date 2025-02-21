@@ -3,12 +3,12 @@ import React, { useState } from "react";
 
 function EditMeetingForm({ meeting, onSubmit, onCancel }) {
   // On initialise l'état avec les valeurs existantes
-  const [date, setDate] = useState(meeting.date.slice(0, 10)); // slice(0,10) => YYYY-MM-DD
+  const [date, setDate] = useState(meeting.date.slice(0, 10)); // YYYY-MM-DD
   const [title, setTitle] = useState(meeting.title);
   const [summary, setSummary] = useState(meeting.summary);
   const [agenda, setAgenda] = useState(meeting.agenda || []);
 
-  // Pour l'ajout d'item principal / sous-item
+  // Ajout d'item principal / sous-item
   const [newAgendaText, setNewAgendaText] = useState("");
   const [newSubItemText, setNewSubItemText] = useState("");
   const [parentIndex, setParentIndex] = useState(null);
@@ -43,7 +43,7 @@ function EditMeetingForm({ meeting, onSubmit, onCancel }) {
     }
     // On reconstruit l'objet meeting mis à jour
     const updated = {
-      ...meeting, // on récupère _id, etc.
+      ...meeting,
       date,
       title,
       summary,
@@ -78,11 +78,10 @@ function EditMeetingForm({ meeting, onSubmit, onCancel }) {
         />
       </div>
 
-      {/* Agenda Items + Sous-items */}
+      {/* Agenda */}
       <div className="mb-2">
         <label className="block font-medium">Ordre du jour</label>
-
-        {/* Ajouter item principal */}
+        {/* Item principal */}
         <div className="flex gap-2 mb-2">
           <input
             type="text"
@@ -100,7 +99,7 @@ function EditMeetingForm({ meeting, onSubmit, onCancel }) {
           </button>
         </div>
 
-        {/* Ajouter sous-item */}
+        {/* Sous-item */}
         <div className="flex gap-2 mb-4">
           <select
             className="border p-2 rounded"
@@ -134,7 +133,7 @@ function EditMeetingForm({ meeting, onSubmit, onCancel }) {
           </button>
         </div>
 
-        {/* Aperçu de la structure */}
+        {/* Aperçu */}
         <ul className="list-disc list-inside space-y-1">
           {agenda.map((item, idx) => (
             <li key={idx} className="ml-4">

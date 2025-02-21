@@ -3,15 +3,16 @@ import React, { useEffect, useState } from "react";
 import MeetingForm from "./components/MeetingForm";
 import MeetingList from "./components/MeetingList";
 
+// On lit la variable d'env VITE_API_URL
 const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [meetings, setMeetings] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Charger la liste au démarrage
+  // Charger la liste au montage
   useEffect(() => {
-    fetch(API_URL)
+    fetch(`${API_URL}/meetings`)
       .then((res) => res.json())
       .then((data) => {
         setMeetings(data);
@@ -41,13 +42,12 @@ function App() {
   // Mettre à jour (PUT)
   const handleUpdateMeeting = async (updatedMeeting) => {
     try {
-      const res = await fetch(`${API_URL}/${updatedMeeting._id}`, {
+      const res = await fetch(`${API_URL}/meetings/${updatedMeeting._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(updatedMeeting),
       });
       const saved = await res.json();
-      // Met à jour dans le state
       setMeetings((prev) => prev.map((m) => (m._id === saved._id ? saved : m)));
     } catch (error) {
       console.error("Erreur mise à jour:", error);
@@ -57,7 +57,7 @@ function App() {
   // Supprimer (DELETE)
   const handleDeleteMeeting = async (id) => {
     try {
-      await fetch(`${API_URL}/${id}`, { method: "DELETE" });
+      await fetch(`${API_URL}/meetings/${id}`, { method: "DELETE" });
       setMeetings((prev) => prev.filter((m) => m._id !== id));
     } catch (error) {
       console.error("Erreur suppression:", error);
