@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import MeetingForm from "./components/MeetingForm";
 import MeetingList from "./components/MeetingList";
 
-const API_URL = import.meta.env.VITE_API_URL + "/meetings";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function App() {
   const [meetings, setMeetings] = useState([]);
@@ -26,7 +26,7 @@ function App() {
   // Créer (POST)
   const handleAddMeeting = async (newMeeting) => {
     try {
-      const res = await fetch(API_URL, {
+      const res = await fetch(`${API_URL}/meetings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newMeeting),
